@@ -17,12 +17,12 @@ function Spot(i, j){
     this.show = function(){
         fill(255);
         stroke(0);
-        rect(this.x * w,this.y * h, w, h)
+        rect(this.x * w ,this.y * h , w , h );
     }
 }
 
 function setup(){
-    createCanvas(400,400);
+    createCanvas(300,300);
     console.log('A*');
     //Creating 2D Array
     w = width / cols;
@@ -33,7 +33,7 @@ function setup(){
 
     for (let i = 0; i < cols; i++) {
         for (let j = 0; j < cols; j++) {
-            grid[i][j] = new Spot();
+            grid[i][j] = new Spot(i,j);
         }
     }
     start = grid[0][0];
