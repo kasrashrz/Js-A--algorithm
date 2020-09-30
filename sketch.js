@@ -2,6 +2,9 @@ var cols = 5;
 var rows = 5;
 var grid = new Array(cols);
 
+var openSet = [];
+var closedSet = [];
+
 function Spot(){
     this.f = 0;
     this.g = 0;
@@ -16,7 +19,7 @@ function setup(){
     }
 
     for (let i = 0; i < cols; i++) {
-        for (let j = 0; j < cols;ji++) {
+        for (let j = 0; j < cols; j++) {
             grid[i][j] = new Spot();
         }
     }
