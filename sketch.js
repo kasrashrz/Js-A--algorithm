@@ -32,16 +32,16 @@ function Spot(i, j){
     this.addNeighbors = function(grid){
         //ifs are for checking the edges 
         if(i<cols - 1){
-        this.neighbors.push(grid[this.i + 1, this.j])
+        this.neighbors.push(grid[this.i + 1][this.j])
         }
         if(i > 0){
-        this.neighbors.push(grid[this.i - 1, this.j])
+        this.neighbors.push(grid[this.i - 1][this.j])
         }
         if(j < rows - 1){
-        this.neighbors.push(grid[this.i, this.j + 1])
+        this.neighbors.push(grid[this.i][this.j + 1])
         }
         if(j>0){
-        this.neighbors.push(grid[this.i, this.j - 1])
+        this.neighbors.push(grid[this.i][this.j - 1])
         }
         
     }
@@ -60,8 +60,17 @@ function setup(){
     for (let i = 0; i < cols; i++) {
         for (let j = 0; j < cols; j++) {
             grid[i][j] = new Spot(i,j);
+           
         }
     }
+
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < cols; j++) {
+            grid[i][j].addNeighbors(grid);       
+        }
+    }
+
+
     start = grid[0][0];
     end = grid[cols - 1][rows - 1];
     openSet.push(start);
