@@ -11,8 +11,8 @@ function heuristic(a, b) {
   var d = abs(a.i - b.i) + abs(a.j - b.j);
   return d;
 }
-var cols = 25;
-var rows = 25;
+var cols = 30;
+var rows = 30;
 var grid = new Array(cols);
 
 var openSet = [];
@@ -21,6 +21,7 @@ var w, h;
 var start;
 var end;
 var path = [];
+// var no_solution = false;
 function Spot(i, j) {
   this.i = i;
   this.j = j;
@@ -31,7 +32,7 @@ function Spot(i, j) {
   this.previous = undefined;
   this.wall = false;
 
-  if (random(1) < 0.1) {
+  if (random(1) < 0.3) {
     this.wall = true;
   }
   this.show = function (color) {
@@ -57,11 +58,26 @@ function Spot(i, j) {
     if (j > 0) {
       this.neighbors.push(grid[this.i][this.j - 1]);
     }
+    // Start to add diagnality
+    if (i > 0 && j > 0) {
+      this.neighbors.push(grid[this.i - 1][this.j - 1]);
+    }
+    if (i < cols - 1 && j > 0) {
+      this.neighbors.push(grid[this.i + 1][this.j - 1]);
+    }
+    if (i > 0 && j < rows - 1) {
+      this.neighbors.push(grid[this.i - 1][this.j + 1]);
+    }
+    if (i < cols - 1 && j < rows - 1) {
+      this.neighbors.push(grid[this.i + 1][this.j + 1]);
+    }
   };
 }
 
 function setup() {
-  createCanvas(300, 300);
+  // createCanvas(window.innerWidth, window.innerHeight);
+  createCanvas(400, 400);
+
   console.log("A*");
   //Creating 2D Array
   w = width / cols;
@@ -84,6 +100,8 @@ function setup() {
 
   start = grid[0][0];
   end = grid[cols - 1][rows - 1];
+  start.wall = false;
+  end.wall = false;
   openSet.push(start);
   console.log(grid);
 }
@@ -127,6 +145,10 @@ function draw() {
       }
     }
   } else {
+    console.log("No Way To End Point");
+    // no_solution = true;
+    noLoop();
+    return;
   }
 
   background(0);
@@ -136,7 +158,7 @@ function draw() {
     }
   }
   for (var i = 0; i < closedSet.length; i++) {
-    closedSet[i].show(color(255, 0, 0));
+    closedSet[i].show(color(153, 50, 204));
   }
 
   for (var i = 0; i < openSet.length; i++) {
@@ -151,6 +173,6 @@ function draw() {
     temp = temp.previous;
   }
   for (var i = 0; i < path.length; i++) {
-    path[i].show(color(0, 0, 255));
+    path[i].show(color(255, 255, 0));
   }
 }
