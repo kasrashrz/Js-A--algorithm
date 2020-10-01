@@ -31,12 +31,12 @@ function Spot(i, j) {
   this.previous = undefined;
   this.wall = false;
 
-  if(random(1)< 0.1){
+  if (random(1) < 0.1) {
     this.wall = true;
   }
   this.show = function (color) {
     fill(color);
-    if(this.wall){
+    if (this.wall) {
       fill(0);
     }
     noStroke(0);
@@ -83,7 +83,7 @@ function setup() {
   }
 
   start = grid[0][0];
-  end = grid[10][20];
+  end = grid[cols - 1][rows - 1];
   openSet.push(start);
   console.log(grid);
 }
@@ -111,7 +111,7 @@ function draw() {
     for (var i = 0; i < neighbors.length; i++) {
       var neighbor = neighbors[i];
 
-      if (!closedSet.includes(neighbor)) {
+      if (!closedSet.includes(neighbor) && !neighbor.wall) {
         var tempG = current.g + 1;
         if (openSet.includes(neighbor)) {
           if (tempG < neighbor.g) {
