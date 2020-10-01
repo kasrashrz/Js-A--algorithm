@@ -17,8 +17,8 @@ var start;
 var end;
 
 function Spot(i, j){
-    this.x = i;
-    this.y = j;
+    this.i = i;
+    this.j = j;
     this.f = 0;
     this.g = 0;
     this.h = 0; 
@@ -26,10 +26,11 @@ function Spot(i, j){
     this.show = function(color){
         fill(color);
         noStroke(0);
-        rect(this.x * w ,this.y * h , w - 1 , h - 1);
+        rect(this.i * w ,this.j * h , w - 1 , h - 1);
     }
 
     this.addNeighbors = function(grid){
+        //ifs are for checking the edges 
         if(i<cols - 1){
         this.neighbors.push(grid[this.i + 1, this.j])
         }
