@@ -6,6 +6,9 @@ function removeFromArray(arr, elt){
     }
 }
 
+function heuristic(a,b){
+    var d = dist(a.i,a.j,b.i,b.j)
+}
 var cols = 5;
 var rows = 5;
 var grid = new Array(cols);
@@ -22,7 +25,7 @@ function Spot(i, j){
     this.f = 0;
     this.g = 0;
     this.h = 0; 
-    this.neighbors = 0;
+    this.neighbors =[];
     this.show = function(color){
         fill(color);
         noStroke(0);
@@ -94,6 +97,24 @@ function draw(){
         //As javaScript doesn't have a function to remove somthing from an array we're gonna make an optimal function to do that stuff
         removeFromArray(openSet,current);
         closedSet.push(current);
+
+        var neighbors = current.neighbors;
+        for (var i = 0; i < neighbors.length ; i++) {
+            var neighbor = neighbors[i];
+
+            if(!closedSet.includes(neighbor)){
+                var tempG = current.g + 1;
+                if(openSet.includes(neighbor)){
+                    if(tempG < neighbor.g){
+                        neighbor.g = tempG;
+                    }
+                } else {
+                neighbor.g = tempG;
+                openSet.push(neighbor);
+            }
+                neighbor.h = heuristic(neighbor,end);
+            }
+        }
     
         } else {
 
