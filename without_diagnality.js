@@ -36,13 +36,13 @@ function Spot(i, j) {
     this.wall = true;
   }
   this.show = function (color) {
-    // fill(color);
+    fill(color);
     if (this.wall) {
+      // ellipse(this.i * w + w / 2, this.j * h + h / 2, w / 2, h / 2);
       fill(0);
-      noStroke(0);
-      ellipse(this.i * w + w / 2, this.j * h + h / 2, w / 2, h / 2);
     }
-    // rect(this.i * w, this.j * h, w - 1, h - 1);
+    noStroke(0);
+    rect(this.i * w, this.j * h, w - 1, h - 1);
   };
 
   this.addNeighbors = function (grid) {
@@ -131,15 +131,15 @@ function draw() {
       var neighbor = neighbors[i];
       if (!closedSet.includes(neighbor) && !neighbor.wall) {
         var tempG = current.g + 1;
-        // var newPath = false;
+        var newPath = false;
         if (openSet.includes(neighbor)) {
           if (tempG < neighbor.g) {
             neighbor.g = tempG;
-            // newPath = true;
+            newPath = true;
           }
         } else {
           neighbor.g = tempG;
-          // newPath = true;
+          newPath = true;
           openSet.push(neighbor);
         }
         neighbor.h = heuristic(neighbor, end);
@@ -154,7 +154,7 @@ function draw() {
     return;
   }
 
-  background(255);
+  background(0);
   for (var i = 0; i < cols; i++) {
     for (var j = 0; j < rows; j++) {
       grid[i][j].show(color(255));
@@ -176,14 +176,6 @@ function draw() {
     temp = temp.previous;
   }
   for (var i = 0; i < path.length; i++) {
-    // path[i].show(color(255, 255, 0));
+    path[i].show(color(255, 255, 0));
   }
-  noFill();
-  stroke(255, 0, 255);
-  strokeWeight(w / 2);
-  beginShape();
-  for (var i = 0; i < path.length; i++) {
-    vertex(path[i].i * w + w / 2, path[i].j * h + h / 3);
-  }
-  endShape();
 }
