@@ -17,7 +17,7 @@ function Spot(i, j){
     this.show = function(){
         fill(255);
         stroke(0);
-        rect(this.x * w ,this.y * h , w , h );
+        rect(this.x * w ,this.y * h , w - 1 , h - 1);
     }
 }
 
@@ -52,7 +52,7 @@ function draw(){
     background(0);
     for(var i = 0; i< cols; i++){
         for(var j = 0;j < rows; j++){
-            grid[i][j].show();
+            grid[i][j].show(color(255));
         }
     }
 }
