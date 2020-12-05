@@ -1,4 +1,4 @@
-# JS-A-
+# JS-A-Star
 
 ## Simple A\* Path finding Using Javascript
 
